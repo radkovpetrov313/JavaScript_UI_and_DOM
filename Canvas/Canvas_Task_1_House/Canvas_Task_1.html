@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Cavnvas_Task_1</title>
+	<style>
+		canvas {
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="the-canvas" height="480" width="500"></canvas>
+
+	<script>
+		var canvas = document.getElementById('the-canvas'),
+			ctx = canvas.getContext('2d');
+
+		ctx.lineWidth = '3';
+		ctx.fillStyle = '#975B5B';
+		ctx.fillRect(0, 250, 300, 230);
+		ctx.strokeRect(0, 250, 300, 230);
+
+		//roof:
+		ctx.beginPath();
+		ctx.moveTo(0, 250);
+		ctx.lineTo(150, 100);
+		ctx.lineTo(300, 250);
+		ctx.closePath();
+		ctx.fill();
+		ctx.stroke();
+
+		//chimney:
+		ctx.beginPath();
+		ctx.moveTo(210, 210);
+		ctx.lineTo(210, 130);
+		ctx.lineTo(240, 130);
+		ctx.lineTo(240, 210);
+		ctx.fill();
+		ctx.stroke();
+		
+		//chimney's ellipse:
+		ctx.beginPath();
+		ctx.save();
+		ctx.scale(1, 0.3);
+		ctx.arc(225, 430, 15, 0, 2 * Math.PI);
+		ctx.fill();
+		ctx.stroke();
+		ctx.restore();
+
+		//windows --> up-left:
+		ctx.fillStyle = '#000000';
+		ctx.beginPath();
+		ctx.fillRect(26, 275, 50, 35);
+		ctx.fillRect(26, 313, 50, 35);
+		ctx.fillRect(79, 275, 50, 35);
+		ctx.fillRect(79, 313, 50, 35);
+
+		//windows --> up-right:
+		ctx.fillRect(170, 275, 50, 35);
+		ctx.fillRect(170, 313, 50, 35);
+		ctx.fillRect(223, 275, 50, 35);
+		ctx.fillRect(223, 313, 50, 35);
+
+		//windows --> down-right:
+		ctx.fillRect(170, 375, 50, 35);
+		ctx.fillRect(170, 413, 50, 35);
+		ctx.fillRect(223, 375, 50, 35);
+		ctx.fillRect(223, 413, 50, 35);
+
+		//doors:
+		ctx.beginPath();
+		ctx.moveTo(36, 480);
+		ctx.lineTo(36, 392);
+		ctx.moveTo(119, 480);
+		ctx.lineTo(119, 392);
+		ctx.stroke();
+
+		//dorrs' top:
+		ctx.beginPath();
+		ctx.moveTo(36, 392);
+		ctx.quadraticCurveTo(77, 360, 119, 392);
+		ctx.moveTo(77, 375);
+		ctx.lineTo(77, 480);
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.arc(62, 450, 5, 0, 2 * Math.PI);
+		ctx.stroke();
+
+		ctx.beginPath();
+		ctx.arc(92, 450, 5, 0, 2 * Math.PI);
+		ctx.stroke();
+	</script>
+</body>
+</html>

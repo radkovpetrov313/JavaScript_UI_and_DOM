@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Canvas Task --> Bicicle</title>	
+		<style>
+			canvas {
+				border: 1px solid black;
+			}
+		</style>	
+	</head>
+	<body>
+		<canvas id="bicicle" width="1000" height="500"></canvas>
+		
+		<script>
+			var canvas = document.getElementById('bicicle'),
+				ctx = canvas.getContext('2d');
+			
+			ctx.fillStyle = '#90CAD7';
+			ctx.strokeStyle = '#337D8F';
+			ctx.lineWidth = 5;
+
+			//left weel:
+			ctx.beginPath();
+			ctx.arc(150, 350, 146, 0, 2 * Math.PI);
+			ctx.fill();			
+			ctx.arc(150, 350, 146, 0, 2 * Math.PI);
+			ctx.stroke();
+
+			//right weel:
+			ctx.beginPath();
+
+			ctx.arc(850, 350, 146, 0, 2 * Math.PI);
+			ctx.fill();			
+			ctx.arc(850, 350, 146, 0, 2 * Math.PI);
+			ctx.stroke();
+
+			//middle weel:
+			ctx.beginPath();
+			ctx.arc(445, 350, 50, 0, 2 * Math.PI);
+			ctx.stroke();
+
+			//weel Line:
+			ctx.beginPath();
+			ctx.moveTo(150, 350);
+			ctx.lineTo(445, 350);
+
+			//back diagonaly:
+			ctx.moveTo(150, 350);
+			ctx.lineTo(340, 150);
+
+			//middle line:
+			ctx.lineTo(780, 150);
+			ctx.lineTo(445, 350);
+
+			//line to sitting place:
+			ctx.lineTo(285, 80);
+			ctx.moveTo(220, 80);
+			ctx.lineTo(350, 80);
+
+			//front diagonaly (driving weel):
+			ctx.moveTo(850, 350);
+			ctx.lineTo(765, 60);
+			ctx.lineTo(860, 5);
+			ctx.moveTo(765, 60);
+			ctx.lineTo(660, 80);
+
+			//pedals:
+			ctx.moveTo(408, 320);
+			ctx.lineTo(365, 275);
+			ctx.moveTo(468, 392);
+			ctx.lineTo(508, 440);
+			ctx.stroke();		
+		</script>
+	</body>
+</html>
