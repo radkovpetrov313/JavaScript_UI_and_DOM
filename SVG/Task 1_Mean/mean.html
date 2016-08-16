@@ -5,49 +5,191 @@
 		<title>SVG Test</title>
 		
 		<style>
-			#root {
+			#source-svg {
 				border: 1px solid black;
 			}
 		</style>		
 	</head>
 	<body>
-		<svg id="root" width="550" height="800">
-			<!--Letter "M" and first Circle-->
-			<path d="M 80 130 V 200 H 95 V 160 L 110 200 L 125 160 V 200 H 140 V 130 H 120 L 110 170 L 100 130 H 80" fill="#3E3F37"></path>
-			<circle cx="330" cy="165" r="130" fill="#3E3F37"></circle>
-			<path d="M 300 165 V 235 H 315 V 195 L 330 235 L 345 195 V 235 H 360 V 165 H 340 L 330 205 L 320 165 H 300" fill="#ffffff"></path>
-			<path d="M 305 165 Q 305 115 330 90 L 330 205 L 320 165 H 305"  fill="#5EB14A"></path>
-			<path d="M 355 165 Q 355 115 330 90 L330 205 L 340 165 H 355" fill="#449644"></path>
+		<svg id="source-svg" width="550" height="800"></svg>
 
-			<!--Letter "E" and second Circle-->
-			<path d="M 85 255 V 325 H 135 V 311 H 99 V 297 H 135 V 283 H 99 V 269 H 135 V 255 Z"></path>
-			<circle cx="330" cy="290" r="130"></circle>
-			<text x="223" y="305" font-family="calibri" font-size="70" fill="#ffffff">express</text>
+		<script>
+			var svg;
+			
+			svg = document.getElementById('source-svg');
+			svgNS = 'http://www.w3.org/2000/svg';
 
-			<!--Letter "A" and third Circle-->
-			<path d="M 85 470 L 105 400 H 125 L 145 470 H 130 L 127 460 H 103 L 100 470 Z" fill="#E23337"></path>
-			<path d="M 123 445 H 107 L 115 415 Z" fill="#ffffff"></path>
-			<circle cx="330" cy="435" r="130" fill="#E23337"></circle>
-			<path d="M 330 355 L 255 385 L 265 495 H 395 L 405 385 Z" fill="#B6A8A6"></path>
-			<path d="M 330 365 L 265 390 L 275 485 H 330 Z" fill="#E23337"></path>
-			<path d="M 330 365 L 395 390 L 385 485 H 330 Z" fill="#B63032"></path>
-			<path d="M 330 370 L 278 480 H 298 L 308 460 H 330 V 440 H 315 L 330 405 Z" fill="#ffffff"></path>
-			<path d="M 330 370 L 382 480 H 362 L 352 460 H 330 V 440 H 345 L 330 405 Z " fill="#B3B4B4"></path>
+			function hexPoints(x, y, radius) {
+		      var points = [];
+		      for (var theta = 0; theta < Math.PI * 2; theta += Math.PI / 3) {
+		        var pointX, pointY;
+		        pointX = x + radius * Math.sin(theta);
+		        pointY = y + radius * Math.cos(theta);
+		        points.push(pointX + ',' + pointY);
+		      }
+		      return points.join(' ');
+    		}
 
-			<!--Letter "N" and fourth Circle-->
-			<path d="M 80 600 V 530 H 95 L 125 570 V 530 H 140 V 600 H 125 L 95 560 V 600 Z" fill="#8EC74E"></path>
-			<circle cx="330" cy="565" r="130" fill="#8EC74E"></circle>
-			<!--Inner circle letter "n"-->
-			<path d="M 247.5 540 L 225 555 V 590 L 240 575 V 560 L 247.5 555 L 255 560 V 575 L 270 590 V 555 Z"></path>
-			<!--Inner circle letter "o"-->
-			<path d="M 302.5 540 L 280 555 V 575 L 302.5 590 L 325 575 V 555 Z" fill="#ffffff"></path>			
-			<!--Inner circle letter "d"-->
-			<path d="M 357.5 540 L 335 555 V 575 L 357.5 590 L 380 575 V 525 L 365 510 V 545 Z"></path>
-			<path d="M 357.5 555 L 350 560 V 570 L 357.5 575 L 365 570 V 560 Z" fill="#8EC74E"></path>
-			<!--Inner circle letter "e"-->
-			<path d="M 412.5 540 L 390 555 V 575 L 412.5 590 L 427.5 584 L 405 570 V 560 L 412.5 555
-			L 420 560 V 567 L 435 560 V 555 Z"></path>
-			<path d="M 412.5 558 L 408 561 V 569 L 412.5 572 L 417 569 V 561 Z" fill="#ffffff"></path>			 
-		</svg>
+    		//letter "M" and circle:
+    		var m, circleM, leftLeafHalf, rightLeafHalf, innerCircleM;
+
+    		//the letter "M"
+    		m = document.createElementNS(svgNS, 'path');
+    		m.setAttribute('d', 'M 80 117.5 V 187.5 H 95 V 147.5 L 110 187.5 L 125 147.5 V 187.5 H 140 V 117.5 H 120 L 110 157.5 L 100 117.5 H 80');
+    		m.setAttribute('fill', '#3E3F37');
+    		svg.appendChild(m);
+
+    		//the circle next to letter "M"
+    		circleM = document.createElementNS(svgNS, 'circle');
+    		circleM.setAttribute('cx', 330);
+    		circleM.setAttribute('cy', 165);
+    		circleM.setAttribute('r', 130);
+    		circleM.setAttribute('fill', '#3E3F37');
+    		svg.appendChild(circleM);
+
+    		//the letter "M" inside the circle:
+    		innerCircleM = document.createElementNS(svgNS, 'path');
+    		innerCircleM.setAttribute('d', 'M 300 165 V 235 H 315 V 195 L 330 235 L 345 195 V 235 H 360 V 165 H 340 L 330 205 L 320 165 H 300');
+    		innerCircleM.setAttribute('fill', '#ffffff');
+    		svg.appendChild(innerCircleM);
+
+    		//drawing the leaf:
+    		rightLeafHalf = document.createElementNS(svgNS, 'path');
+    		rightLeafHalf.setAttribute('d', 'M 293 165 Q 293 115 330 85 L 330 205 L 320 165 Z');
+    		rightLeafHalf.setAttribute('fill', '#5EB14A')
+    		svg.appendChild(rightLeafHalf);
+
+    		leftLeafHalf = document.createElementNS(svgNS, 'path');
+    		leftLeafHalf.setAttribute('d', 'M 369 165 Q 370 115 330 85 L330 205 L 340 165 H 355');
+    		leftLeafHalf.setAttribute('fill', '#449644');
+    		svg.appendChild(leftLeafHalf);
+
+
+    		var e, circleE, message, innerCircleText;
+    		//Letter "E":
+    		e = document.createElementNS(svgNS, 'path');
+    		e.setAttribute('d', 'M 85 255 V 325 H 135 V 311 H 100 V 297 H 135 V 283 H 100 V 269 H 135 V 255 Z');
+            svg.appendChild(e);
+
+            //Circle next to letter "E":
+            circleE = document.createElementNS(svgNS, 'circle');
+            circleE.setAttribute('cx', 330);
+            circleE.setAttribute('cy', 290);
+            circleE.setAttribute('r', 130);
+            svg.appendChild(circleE);
+
+            //The text inside circle:
+            message = document.createTextNode('express');
+            text = document.createElementNS(svgNS, 'text');
+            text.setAttribute('x', 223);
+            text.setAttribute('y', 305);
+            text.setAttribute('font-family', 'calibri');
+            text.setAttribute('font-size', 70);
+            text.setAttribute('fill', '#ffffff');
+            text.appendChild(message);
+            svg.appendChild(text);
+
+
+
+            //Letter "A" and circle:
+            var a, letterHole, circleA, outerBG, innerBG, innerA, innerAHole, darkArea;
+
+            a = document.createElementNS(svgNS, 'path');
+            a.setAttribute('d', 'M 80 462.5 L 100 392.5 H 120 L 140 462.5 H 125 L 122 452.5 H 98 L 95 462.5 Z');
+            a.setAttribute('fill', '#E23337');
+            svg.appendChild(a);
+
+            letterHole = document.createElementNS(svgNS, 'path');
+            letterHole.setAttribute('d', 'M 118 437.5 H 102 L 110 407.5 Z');
+            letterHole.setAttribute('fill', '#ffffff');           
+            svg.appendChild(letterHole);
+
+            //Circle next to letter "A":
+            circleA = document.createElementNS(svgNS, 'circle');
+            circleA.setAttribute('cx', 330);
+            circleA.setAttribute('cy', 435);
+            circleA.setAttribute('r', 130);
+            circleA.setAttribute('fill', '#E23337');
+            svg.appendChild(circleA);
+
+            //Inner circle figure:
+            outerBG = document.createElementNS(svgNS, 'path');
+            outerBG.setAttribute('d', 'M 330 355 L 255 385 L 265 495 H 395 L 405 385 Z');
+            outerBG.setAttribute('fill', '#B6A8A6');
+            svg.appendChild(outerBG);
+
+            innerBG = document.createElementNS(svgNS, 'path');
+            innerBG.setAttribute('d', 'M 330 365 L 265 390 L 275 485 H 385 L 395 390 Z');
+            innerBG.setAttribute('fill', '#E23337');
+            svg.appendChild(innerBG);
+
+            innerA = document.createElementNS(svgNS, 'path');
+            innerA.setAttribute('d', 'M 330 370 L 278 480 H 298 L 308 460 H 352 L 362 480 H 382 Z');
+            innerA.setAttribute('fill', '#ffffff');
+            svg.appendChild(innerA);
+
+            innerAHole = document.createElementNS(svgNS, 'path');
+            innerAHole.setAttribute('d', 'M 315 440 H 345 L 330 405 Z');
+            innerAHole.setAttribute('fill', '#E23337');
+            svg.appendChild(innerAHole);
+
+            darkArea = document.createElementNS(svgNS, 'path');
+            darkArea.setAttribute('d', 'M 330 365 L 395 390 L 385 485 H 330 Z');
+            darkArea.setAttribute('fill', 'rgba(0, 0, 0, 0.3');
+            svg.appendChild(darkArea);
+
+
+
+            //Letter "N" and Circle:
+            var n, circleN, innerO, innerN, innerNHole, innerD, innerDHole, innerDPart, innerE, innerEHole;
+
+            n = document.createElementNS(svgNS, 'path');
+            n.setAttribute('d', 'M 80 600 V 530 H 95 L 125 570 V 530 H 140 V 600 H 125 L 95 560 V 600 Z');
+            n.setAttribute('fill', '#8EC74E');
+            svg.appendChild(n);
+
+            circleN = document.createElementNS(svgNS, 'circle');
+            circleN.setAttribute('cx', 330);
+            circleN.setAttribute('cy', 565);
+            circleN.setAttribute('r', 130);
+            circleN.setAttribute('fill', '#8EC74E');
+            svg.appendChild(circleN);
+
+            //inner letter "o":
+            innerO = document.createElementNS(svgNS, 'polygon');
+            innerO.setAttribute('points', hexPoints(301.3, 565, 25));
+            innerO.setAttribute('fill', '#ffffff');
+            svg.appendChild(innerO);
+
+            //inner letter "n":
+            innerN = document.createElementNS(svgNS, 'path');
+            innerN.setAttribute('d', 'M 223 590 V 553 L 245 540 L 265.5 553 V 590 L 252 578 V 560 L 245 555 L 236 560 V 578 Z');
+            svg.appendChild(innerN);
+
+            //inner letter "d":
+            innerD = document.createElementNS(svgNS, 'polygon');
+            innerD.setAttribute('points', hexPoints(358.6, 565, 25));          
+            svg.appendChild(innerD);
+
+            innerDHole = document.createElementNS(svgNS, 'polygon');
+            innerDHole.setAttribute('points', hexPoints(358.6, 565, 10));
+            innerDHole.setAttribute('fill', '#ffffff');
+            svg.appendChild(innerDHole);
+
+            innerDPart = document.createElementNS(svgNS, 'path');
+            innerDPart.setAttribute('d', 'M 367.2 570 L 380.2 577.5 V 517.5 L 367.2 510.5 Z');
+            svg.appendChild(innerDPart);
+
+            //inner letter "e":
+            innerE = document.createElementNS(svgNS, 'path');
+            innerE.setAttribute('d', 'M 416 540 L 394.3 552.5 V 577.5 L 416 590 L 429 582.5 L 407.3 570 V 560 L 416 555 L 424.6 560 V 568 L 437.6 560.5 V 552.5 Z');
+            svg.appendChild(innerE);
+
+            innerEHole = document.createElementNS(svgNS, 'polygon');
+            innerEHole.setAttribute('points', hexPoints(416, 565, 6));
+            innerEHole.setAttribute('fill', '#ffffff');
+            svg.appendChild(innerEHole);
+		</script>
+
 	</body>
 </html>

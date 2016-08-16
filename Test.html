@@ -142,7 +142,7 @@
 
 
             //Letter "N" and Circle:
-            var n, circleN, innerO, innerN, innerNHole, innerD, innerDHole, innerE;
+            var n, circleN, innerO, innerN, innerNHole, innerD, innerDHole, innerDPart, innerE, innerEHole;
 
             n = document.createElementNS(svgNS, 'path');
             n.setAttribute('d', 'M 80 600 V 530 H 95 L 125 570 V 530 H 140 V 600 H 125 L 95 560 V 600 Z');
@@ -169,39 +169,27 @@
 
             //inner letter "d":
             innerD = document.createElementNS(svgNS, 'polygon');
-            innerD.setAttribute('points', hexPoints(358.6, 565, 25));
+            innerD.setAttribute('points', hexPoints(358.6, 565, 25));          
             svg.appendChild(innerD);
 
-           /* innerDHole = document.createElementNS(svgNS, 'polygon');
-            innerDHole.setAttribute('points', hexPoints(359, 565, 10));
+            innerDHole = document.createElementNS(svgNS, 'polygon');
+            innerDHole.setAttribute('points', hexPoints(358.6, 565, 10));
             innerDHole.setAttribute('fill', '#ffffff');
-            svg.appendChild(innerDHole);*/
+            svg.appendChild(innerDHole);
 
-
+            innerDPart = document.createElementNS(svgNS, 'path');
+            innerDPart.setAttribute('d', 'M 367.2 570 L 380.2 577.5 V 517.5 L 367.2 510.5 Z');
+            svg.appendChild(innerDPart);
 
             //inner letter "e":
-            innerE = document.createElementNS(svgNS, 'polygon');
-            innerE.setAttribute('points', hexPoints(416, 565, 25));
+            innerE = document.createElementNS(svgNS, 'path');
+            innerE.setAttribute('d', 'M 416 540 L 394.3 552.5 V 577.5 L 416 590 L 429 582.5 L 407.3 570 V 560 L 416 555 L 424.6 560 V 568 L 437.6 560.5 V 552.5 Z');
             svg.appendChild(innerE);
 
-
-
-
-
-
-
-
-
-
-
-
-    	
-
-
-
-
-
-			
+            innerEHole = document.createElementNS(svgNS, 'polygon');
+            innerEHole.setAttribute('points', hexPoints(416, 565, 6));
+            innerEHole.setAttribute('fill', '#ffffff');
+            svg.appendChild(innerEHole);
 		</script>
 
 	</body>
